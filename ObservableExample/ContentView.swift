@@ -15,21 +15,23 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text(book.title)
-            // only pass book.title property
-            BookEditView(bookTitle: book.title)
+            // 3.
+            // now the BookEditView's bookTitle property is a Binding
+            // we have to pass a Binding as the parameter: $book.title instead of book.title
+            BookEditView(bookTitle: $book.title)
         }
         .padding()
     }
 }
 
-// since the component only changes the book's title
-// we wanna pass only the title property to it
 struct BookEditView: View {
-    var bookTitle: String
+    // 2. 
+    // add @Binding to bookTitle to create a binding of the property
+    @Binding var bookTitle: String
     var body: some View {
-        // produce error:
-        // Cannot convert value of type 'String' to expected argument type 'Binding<String>'
-        TextField("title", text: bookTitle)
+        // 1. 
+        // change bookTitle to $bookTitle since the text arg must be a Binding
+        TextField("title", text: $bookTitle)
     }
 }
 
