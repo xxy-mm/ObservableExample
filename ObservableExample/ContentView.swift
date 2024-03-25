@@ -10,21 +10,28 @@
 import SwiftUI
 
 struct ContentView: View {
-    // add @State
      @State private var book = Book()
     
     var body: some View {
         VStack {
             Text(book.title)
-            // book.title -> $book.title
-            TextField("title", text: $book.title)
+            // move TextField into BookEditView and pass the book in
+            BookEditView(book: book)
         }
         .padding()
     }
 }
 
+// create custom view to edit the book title
+struct BookEditView: View {
+    let book: Book
+    var body: some View {
+        // produce error: Cannot find '$book' in scope
+        TextField("title", text: $book.title)
+    }
+}
 
-// add @Observable
+
 @Observable
 class Book {
     var title = "swift programming"
