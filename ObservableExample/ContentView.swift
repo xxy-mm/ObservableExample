@@ -15,18 +15,18 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text(book.title)
-            // move TextField into BookEditView and pass the book in
             BookEditView(book: book)
         }
         .padding()
     }
 }
 
-// create custom view to edit the book title
 struct BookEditView: View {
-    let book: Book
+    // add @Bindable to book property to create binding
+    @Bindable var book: Book
     var body: some View {
-        // produce error: Cannot find '$book' in scope
+        // $book is the binding just created by @Bindable
+        // no longer produce errors
         TextField("title", text: $book.title)
     }
 }
