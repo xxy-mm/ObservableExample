@@ -15,21 +15,15 @@ struct ContentView: View {
     var body: some View {
         VStack {
             Text(book.title)
-            BookEditView(bookTitle: $book.title)
+            // but is you don't pass data deep down into the subviews
+            // you don't need to use Bindings or Bindables.
+            // @State has already created bindings can be used in the current view
+            // Remember: both @Binding and @Bindable are used to create bindings
+            // @Binding is for primitive type
+            // @Bindable is for object which conforms the Observable protocol
+            TextField("title", text: $book.title)
         }
         .padding()
-    }
-}
-
-struct BookEditView: View {
-    // You may ask why not using @Bindable, the reason is:
-    // Binding is for primitive types
-    // Bindable is for object types which conforms to Observable protocol
-    // the code produce error:
-    // 'init(wrappedValue:)' is unavailable: The wrapped value must be an object that conforms to Observable
-    @Bindable var bookTitle: String
-    var body: some View {
-        TextField("title", text: $bookTitle)
     }
 }
 
